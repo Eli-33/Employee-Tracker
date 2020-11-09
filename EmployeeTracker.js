@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
   // Your username
   user: "root",
   // Your password
-  password: "Elinarry28$%",
+  password: "PASSWORD",
   database: "EmployeeTracker_db"
 });
 
@@ -29,6 +29,8 @@ function runApp() {
         "View All Employees",
         "View All Employees By Department",
         "View All Employees By Manager",
+        // "Add Department",
+        // "Add role",
         "Add Employee",
         "Remove Employee",
         "Update Employee Role",
