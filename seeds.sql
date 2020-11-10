@@ -1,7 +1,7 @@
 
 USE EmployeeTracker_db;
 
-/* Insert 3 Rows into the table */
+
 INSERT INTO department (name)
 VALUES ("Sales"),("Engineering"),("Finance"),("Legal");
 
