@@ -1,6 +1,21 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-// const logo = require('asciiart-logo');
+const logo = require('asciiart-logo');
+
+  console.log(logo({
+    name: 'EMPLOYEE-TRACKER',
+    font: 'big',
+    lineChars: 10,
+    padding: 2,
+    margin: 2,
+    borderColor: 'red',
+    logoColor:'bold-red',
+    textColor: 'white'
+  })
+  .emptyLine()
+  .right("Version 1")
+  .render()
+  );
 
 
 const connection = mysql.createConnection({
@@ -10,7 +25,7 @@ const connection = mysql.createConnection({
   // Your username
   user: "root",
   // Your password
-  password: "",
+  password: "Elinarry28$%",
   database: "EmployeeTracker_db"
 });
 
@@ -36,8 +51,6 @@ function runApp() {
         "Add role",
         "Add Employee",
         "Remove Employee",
-        "Update Employee Role",
-        "Update Employee Manager",
         "Quit"
       ]
     })
@@ -78,16 +91,9 @@ function runApp() {
         case "Remove Employee":
             removeEmployees();
             break;
-            
-        case "Update Employee Role":
-            updateEmployeesRole();
-            break;
-
-        case "Update Employee Manager":
-            updateEmployeesManager();
-            break;  
             default:
-            quit();  
+            quit();   
+             
         }
     });
 }
@@ -133,36 +139,40 @@ function viewEmployeesManager(){
   });
 }
 function AddDepartment(){
-  let query = "SELECT * FROM department";
-  connection.query(query,function(err,res){
-    if(err) throw err;
-    console.table(res);
   inquirer
   .prompt([
     {
-      name: "departmentName",
+      name: "name",
       type:"input",
       message: "What is the name of the department?"
     }
   ])
   .then(function(answer){
-    let query = "INSERT INTO department (name) VALUES (?)";
-    console.log(answer);
-    connection.query(query,{name:answer.departmentName},function (err,res){
-      if (err) throw err;
-      console.table (res);
-      runApp();
 
-    });
+    createDepartment(answer);
+    console.log("success");
+    runApp();
+
+    function createDepartment(name) {
+      console.log("creating")
+      return connection.query("INSERT INTO department SET ?", name);
+    }
   });
-  }); 
+
 }
+
+
 function Addrole(){
-  let query = "SELECT title,salary,department_id FROM role";
-  connection.query(query,function(err,res){
-    if(err) throw err;
-    console.table(res);
-  inquirer
+ let query = "SELECT * FROM department";
+   connection.query(query,function (err,res){
+    if (err) throw err;
+    const departmentChoices = res.map(({ id, name }) => ({
+      name: name,
+      value: id
+    }));
+    console.log(departmentChoices);
+
+    inquirer
   .prompt([
     {
       name: "title",
@@ -170,31 +180,29 @@ function Addrole(){
       message: "What is the title of the role?"
     },
     {
-      name: "salaryTotal",
+      name: "salary",
       type: "input",
       message: "What is the salary for this role?"
     },
     {
-      name: "deptID",
+      name: "department_id",
       type: "list",
       message: "What is the department for the role?",
-      choices: res.map(function(department){
-        return {value:department.id};
-      }) 
+      choices: departmentChoices
     },
   ])
-  .then(function(answer) {
-    let deptID = answer.deptID;
-    let title = answer.title;
-    let salary = answer.salaryTotal;
-    let query = "INSERT INTO role (title, salary,department_id) VALUES (?, ?, ?)";
-    console.log(answer);
-    connection.query(query, [title, salary, deptID], function(err, res) {
-      if (err) throw err;
-      console.table(res);
-      runApp();
-    });
+  .then(function(answer){
+
+    createRole(answer);
+    console.log("success");
+    runApp();
+
+    function createRole(role) {
+      console.log("creating role")
+      return connection.query("INSERT INTO role SET ?", role);
+    }
   });
+
   });
 }
 function addEmployees(){
@@ -259,63 +267,7 @@ function removeEmployees(){
     })
   })
 } 
-function updateEmployeesRole(){
-  let query = "SELECT first_name,last_name,role_id FROM employee"
-  connection.query(query,function(err,res){
-    if(err) throw err;
-    inquirer
-    .prompt([
-      {
-        name:"employeeInfo",
-        type: "list",
-        message: "Choose the employee for updating.",
-        choices: res.map(function(employee){
-          return {name: employee.first_name +" "+ employee.last_name + " " + employee.role_id, value: employee.role_id};
-        })
-      },
-      {
-        name:"updateRole",
-        type: "input",
-        message: "change the ID.",
-      }
-    ])
-    .then(function(answer){
-      console.log(answer);
-      let query = "UPDATE employee SET role_id=? WHERE first_name= ?";
-      connection.query(query,{roleId:answer.updateRole},function(err,res){
-        if (err) throw err;
-        runApp();
-      })
-    }) 
-  })
-}     
-function updateEmployeesManager(){
-  let query = "SELECT first_name,last_name,manager_id FROM employee";
-  connection.query(query,function(err,res){
-    if(err) throw err;
-    console.table(res);
-    inquirer
-    .prompt([
-      {
-        name: "empName",
-        type: "list",
-        message: "Choose the employee.",
-        choices: res.map(function(updateEmpMan){
-          return {name: updateEmpMan.first_name + updateEmpMan.last_name + updateEmpMan.last_name + updateEmpMan.manager_id, value:updateEmpMan.manager_id};
-        })
-      }
-    ])
-    .then(function(answer){
-      console.log(answer);   
-                let query = "UPDATE FROM employee WHERE manager_id?";
-                connection.query(query,{id:answer.empName},function(err,res){
-                if (err) throw err;
-                console.log(res);
-                runApp();
-                });
-              })
-            });   
-}           
+               
 function quit(){
   connection.end();
   process.exit();
