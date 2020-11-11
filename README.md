@@ -35,6 +35,15 @@ After you can run the node EmployeeTracker.js in the terminal to add,view,delete
 
 ## Images
 ![Image]()
+![Image]()
+![Image]()
+![Image]()
+![Image]()
+![Image]()
+![Image]()
+![Image]()
+![Image]()
+![Image]()
 
 ## Demonstration
 
