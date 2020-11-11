@@ -34,20 +34,19 @@ the application need correctly inistalled :
 After you can run the node EmployeeTracker.js in the terminal to add,view,delete the employees, roles and departments!
 
 ## Images
-![Image]()
-![Image]()
-![Image]()
-![Image]()
-![Image]()
-![Image]()
-![Image]()
-![Image]()
-![Image]()
-![Image]()
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/lego.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/viewDepart.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/viewEmployees.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/viewRoles.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/viewmanager.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/adddepartment.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/addEmployee.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/addrole.PNG)
+![Image](https://github.com/Eli-33/Employee-Tracker/blob/main/Screenshots/removeEmployee%26exit.PNG)
 
 ## Demonstration
 
-![Here is the video]()
+![Here is the video](https://github.com/Eli-33/Employee-Tracker/blob/main/EmployeeTracker.gif)
 
 ## license
 [![License](https://img.shields.io/badge/License-MIT-<Blue>.svg)](https://shields.io/)
